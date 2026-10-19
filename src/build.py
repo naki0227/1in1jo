@@ -22,6 +22,8 @@ head_meta = """<!doctype html>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://1in1jo.enludus.com/og.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px;font-family:system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 """
 body = open('index.html').read()

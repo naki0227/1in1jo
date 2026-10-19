@@ -12,6 +12,7 @@ const QUESTIONS = [
   'いま、窓の外にいる生き物は何でしょう。',
 ];
 let P = null;
+const track = (name, data) => { try { window.va && window.va('event', { name, data }); } catch (e){} };
 const probText = p => p >= 0.01 ? pct(p) : oneIn(p);
 
 function initUI(){
@@ -102,9 +103,11 @@ function showBirth(org, p, ws){
   renderScene(document.getElementById('b-scene'), { scene: sceneOf(org, place, org.stages[0].name), sprite: spriteOf(org, org.stages[0].name), sibs: P.sibN, frame: 0 });
   ui.birth.hidden = false;
   ui.birth.scrollIntoView({ behavior:'smooth', block:'start' });
+  track('born', { species: org.name, group: org.group, mode: state.mode, filter: state.filter });
   document.getElementById('b-start').onclick = beginLife;
   const bt = tweetBirth();
   document.getElementById('x-birth').href = xUrl(bt);
+  document.getElementById('x-birth').onclick = () => track('share', { where: 'birth', to: 'x' });
   const bcv = document.getElementById('card-birth'); drawCard(bcv, 'birth', {}); document.fonts && document.fonts.ready.then(() => drawCard(bcv, 'birth', {}));
   document.getElementById('img-birth').onclick = () => saveCard(bcv, bt);
   renderDist(); renderSurv(); renderLadder(); drawHist();
@@ -355,6 +358,7 @@ function finishLife(cause, divided){
   ui.ending.hidden = false;
   ui.ending.scrollIntoView({ behavior:'smooth', block:'center' });
   document.getElementById('e-rec').addEventListener('click', () => { ui.ending.hidden = true; showRecord(cause, divided, longer, allLonger); });
+  track('life_end', { species: o.name, divided: !!divided });
   savePast({ name:state.name, sp:o.name, life:P.t, cause, at:Date.now(), p:P.p });
 }
 function lowerBound(a, x){ let lo = 0, hi = a.length; while (lo < hi){ const m = (lo + hi) >> 1; if (a[m] < x) lo = m + 1; else hi = m; } return lo; }
@@ -393,6 +397,8 @@ function showRecord(cause, divided, longer, allLonger){
   document.getElementById('share2').addEventListener('click', copyShare);
   const endTxt = tweetEnd(cause, divided);
   document.getElementById('x-end').href = xUrl(endTxt);
+  document.getElementById('x-end').addEventListener('click', () => track('share', { where: 'end', to: 'x' }));
+  document.getElementById('line-end').addEventListener('click', () => track('share', { where: 'end', to: 'line' }));
   document.getElementById('line-end').href = lineUrl(endTxt);
   const cv = document.getElementById('card-end'); drawCard(cv, 'end', { cause, divided }); document.fonts && document.fonts.ready.then(() => drawCard(cv, 'end', { cause, divided }));
   document.getElementById('img-end').addEventListener('click', () => saveCard(cv, endTxt));
