@@ -1,0 +1,153 @@
+<div class="wrap" id="top">
+  <header class="hero">
+    <span class="eyebrow">地球上のすべての生き物から、ひとつの命を引く</span>
+    <h1 id="hero-num">110<span class="u">穣</span><span class="bun">分の1</span></h1>
+    <p class="sci" id="hero-sci"></p>
+    <p class="lead">「80億分の1」は、ヒトに生まれることが前提のくじです。ここではその前提を外します。地下の岩の中の細菌から、海を漂うカイアシ類、イワシ、スズメ、クジラ、ヒトまで。<b>地球にいるすべての命の中から</b>、あなたの次の一生を1つだけ引き、最後まで生きてみます。何に生まれるかは選べません。</p>
+    <div class="counter">
+      <div><b class="mono" id="cnt-all">0</b><span>このページを開いてから、地球で生まれた命（推計）</span></div>
+      <div><b class="mono" id="cnt-hu">0</b><span>そのうちヒト</span></div>
+    </div>
+  </header>
+
+  <section class="setup" aria-label="生まれる前の設定">
+    <div class="field">
+      <span class="lab">命の選び方</span>
+      <div class="seg">
+        <input type="radio" name="mode" id="m-stock" value="stock" checked><label for="m-stock">いま生きている数で</label>
+        <input type="radio" name="mode" id="m-births" value="births"><label for="m-births">1年に生まれる数で</label>
+      </div>
+      <span class="hint">「生きている数」は個体数に比例。「生まれる数」は出生数に比例するので、卵を大量に産む生き物や、すぐ分裂する微生物が増えます。</span>
+    </div>
+    <div class="field">
+      <label for="filter">くじの範囲</label>
+      <select id="filter">
+        <option value="all">すべての生物（微生物を含む）</option>
+        <option value="animal">動物だけ</option>
+        <option value="insect">昆虫だけ</option>
+        <option value="vert">脊椎動物だけ</option>
+        <option value="mammal">哺乳類だけ</option>
+        <option value="plant">植物だけ</option>
+      </select>
+      <span class="hint">すべての生物から引くと、ほぼ確実に細菌になります。それが地球の実際の内訳です。</span>
+    </div>
+    <div class="field">
+      <span class="lab">ひとつの一生の長さ</span>
+      <div class="seg">
+        <input type="radio" name="len" id="l1" value="1"><label for="l1">約1分</label>
+        <input type="radio" name="len" id="l3" value="3" checked><label for="l3">約3分</label>
+        <input type="radio" name="len" id="l8" value="8"><label for="l8">約8分</label>
+      </div>
+      <span class="hint">その生き物がおとなまで育って寿命を迎えるまでを、この長さに縮めます。早く死ねば、それだけ早く終わります。</span>
+    </div>
+    <div class="field">
+      <label for="name">名前（出生届に記入）</label>
+      <input type="text" id="name" maxlength="20" placeholder="あなた" autocomplete="off">
+    </div>
+    <div class="full go-row">
+      <button class="btn primary" id="go">生まれる</button>
+      <span class="hint">重い出来事（捕食・病気・と畜など）も、統計どおりに起こります。場面は描きません。</span>
+    </div>
+  </section>
+
+  <section class="slot" id="slot" hidden aria-live="polite">
+    <span class="eyebrow">生まれる生き物を決めています</span>
+    <div class="slot-name" id="slot-name">—</div>
+    <div class="slot-p mono" id="slot-p"></div>
+  </section>
+
+  <section class="birth" id="birth" hidden>
+    <div class="cert">
+      <div class="cert-head"><span>出生届 · BIRTH RECORD</span><span class="mono" id="b-no"></span></div>
+      <div class="cert-body">
+        <canvas class="scene" id="b-scene" width="192" height="80" aria-label="生まれた場所の絵"></canvas>
+        <div class="cert-id">
+          <span class="muted small">名前</span><b id="b-name"></b>
+          <span class="species" id="b-species"></span>
+          <span class="muted small mono" id="b-sci"></span>
+        </div>
+        <p class="cert-sum" id="b-summary"></p>
+        <dl class="cert-rows" id="b-rows"></dl>
+        <p class="fact" id="b-fact"></p>
+        <div class="table-wrap slim"><table class="cmp" id="b-compare"></table></div>
+        <div>
+          <h3>同じ1秒に、地球のどこかで生まれた命</h3>
+          <ul class="b-peers" id="b-peers"></ul>
+        </div>
+        <pre class="mrz mono" id="b-mrz"></pre>
+      </div>
+    </div>
+    <div class="b-share"><canvas class="card-prev" id="card-birth" width="1200" height="630" aria-label="誕生カード"></canvas>
+      <div class="go-row share-row"><a class="btn xbtn" id="x-birth" target="_blank" rel="noopener">𝕏 で誕生カードをポスト</a><button class="btn" id="img-birth">画像を保存</button><span class="toast" id="toast-b" role="status"></span></div></div>
+    <div class="go-row"><button class="btn primary" id="b-start">一生を始める</button><button class="btn" onclick="startBirth()">引き直す</button></div>
+  </section>
+
+  <section class="player" id="player" hidden>
+    <div class="p-top">
+      <div class="p-age"><span class="mono" id="p-age">0分</span><span class="p-stage" id="p-stage"></span></div>
+      <div class="p-meta"><span id="p-name"></span> · <span id="p-species"></span> · <span id="p-place"></span> · <span id="p-rate"></span></div>
+      <div class="bar"><i id="p-bar"></i></div>
+      <div class="ctrls">
+        <button class="btn small" id="ctl-pause">一時停止</button>
+        <button class="btn small" data-speed="1">1×</button><button class="btn small" data-speed="4">4×</button><button class="btn small" data-speed="16">16×</button><button class="btn small" data-speed="64">64×</button>
+        <button class="btn small" id="ctl-next">次の決断まで »</button>
+        <button class="btn small" id="ctl-auto" aria-pressed="false">本能まかせ</button>
+        <button class="btn small" id="ctl-end">最後まで</button>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col">
+        <div class="panel id-card">
+          <div class="id-head"><span>個体記録</span><span id="p-group"></span></div>
+          <pre class="mrz mono" id="p-mrz"></pre>
+        </div>
+        <div class="panel">
+          <h3>いまの状態</h3>
+          <div class="gauge"><span>成長</span><span class="g"><i id="g-grow"></i></span><span class="mono">0</span></div>
+          <div class="gauge"><span>この時期の危険</span><span class="g"><i id="g-danger" class="warn"></i></span><span class="mono">0</span></div>
+          <div class="gauge"><span>食べる量</span><span class="g"><i id="g-food"></i></span><span class="mono">0</span></div>
+          <dl class="mini">
+            <div><dt>同じ瞬間に生まれた仲間で、いま生きている割合</dt><dd class="mono big" id="p-cohort"></dd></div>
+            <div><dt>きょうだい（生存 / 全体）</dt><dd class="mono" id="p-sib"></dd></div>
+            <div><dt>いまの過ごし方</dt><dd id="p-focus"></dd></div>
+            <div><dt>残した子</dt><dd class="mono" id="p-kids"></dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="panel scene-panel">
+          <canvas class="scene" id="p-scene" width="192" height="80" aria-label="いまの場面"></canvas>
+          <p class="small" id="p-scene-cap"></p>
+        </div>
+        <div class="p-modal" id="p-modal" hidden></div>
+        <div class="panel">
+          <div class="ph"><h3>一生の記録</h3><span class="small muted">新しい順 · 行を押すと☆</span></div>
+          <ul class="log" id="p-log"></ul>
+        </div>
+      </div>
+      <div class="p-col">
+        <div class="panel">
+          <div class="ph"><h3>同じ1秒に生まれた命</h3><span class="small muted">いま、同じ時刻で</span></div>
+          <ul class="peers-live" id="p-peers"></ul>
+        </div>
+        <div class="panel">
+          <div class="ph"><h3>一生の地図</h3></div>
+          <div class="map" id="p-map"></div>
+          <p class="small muted" id="p-map-note"></p>
+        </div>
+        <div class="panel">
+          <div class="ph"><h3>生存曲線</h3><span class="small muted">縦軸・横軸とも対数</span></div>
+          <div class="chart mini-chart" id="p-surv"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ending" id="ending" hidden></section>
+  <section class="record" id="record" hidden></section>
+
+  <section>
+    <div class="sec-head"><span class="eyebrow">前世の記録</span><h2>これまでの一生</h2></div>
+    <div class="past" id="past"></div>
+    <div class="go-row"><button class="btn" id="again">もう一度生まれる</button></div>
+  </section>

@@ -1,0 +1,77 @@
+  <section id="sec-human">
+    <div class="sec-head">
+      <span class="eyebrow">ヒトに生まれる確率</span>
+      <h2>「80億分の1」の前に、もうひとつのくじがある</h2>
+      <p>同じ数え方でも、どの範囲から引くかで確率は何十桁も変わります。いまの選び方：<b id="hu-mode"></b></p>
+    </div>
+    <div class="cards" id="hu-cards"></div>
+    <div class="compare" id="hu-compare"></div>
+  </section>
+
+  <section id="sec-dist">
+    <div class="sec-head">
+      <span class="eyebrow">くじの中身</span>
+      <h2>地球の命の内訳</h2>
+      <p>棒の長さは対数（1目盛りで10倍）。右の数字は、その生き物に生まれる確率です。下の帯は同じ内訳を普通の比率で並べたもので、ほとんどが微生物で埋まります。</p>
+    </div>
+    <div class="strip" id="dist-strip" aria-label="比率の帯"></div>
+    <p class="small muted" id="strip-note"></p>
+    <div class="legend">
+      <span style="--c:var(--c-prok)">細菌・アーキア</span><span style="--c:var(--c-prot)">原生生物</span><span style="--c:var(--c-inv)">無脊椎動物</span><span style="--c:var(--c-vert)">野生の脊椎動物</span><span style="--c:var(--c-dom)">家畜・家禽・養殖</span><span style="--c:var(--c-plant)">植物</span><span style="--c:var(--human)">ヒト</span>
+    </div>
+    <div class="dist" id="dist"></div>
+  </section>
+
+  <section id="sec-life">
+    <div class="sec-head">
+      <span class="eyebrow">命の長さ</span>
+      <h2>ランダムに生まれた命は、どれくらい生きるか</h2>
+      <p>いまの設定で2万回生まれ直したときの、一生の長さの分布です（横軸は対数）。分裂した微生物は、分裂した時点を一生の終わりとしています。</p>
+    </div>
+    <div class="kpis" id="life-kpis"></div>
+    <div class="chart" id="life-hist"></div>
+  </section>
+
+  <section id="sec-surv">
+    <div class="sec-head">
+      <span class="eyebrow">生存曲線</span>
+      <h2>同じ瞬間に生まれた仲間は、いつまで残るか</h2>
+      <p>縦軸も対数です。ヒトの線はほぼ水平のまま80年を越えますが、魚や昆虫の線は生まれて数日で100分の1、1万分の1へと落ちていきます。</p>
+    </div>
+    <div class="legend" id="surv-legend"></div>
+    <div class="chart" id="surv-chart"></div>
+  </section>
+
+  <section id="sec-r0">
+    <div class="sec-head">
+      <span class="eyebrow">なぜこんなに死ぬのか</span>
+      <h2>数が変わらないなら、子は平均2匹しか残らない</h2>
+      <p>ある生き物の数が長い目で見て増えも減りもしないなら、つがい1組（2匹）が一生のうちに残す子のうち、おとなになるのは平均2匹だけです。だから卵を100万個産む魚では、おとなになれる確率は約50万分の1になります。</p>
+    </div>
+    <div class="formula" id="r0-formula">おとなになれる確率 ≈ 2 ÷（メス1匹が一生に産む子の数）</div>
+    <div class="ladder" id="ladder"></div>
+  </section>
+
+  <section id="sec-method">
+    <div class="sec-head">
+      <span class="eyebrow">どうやって数えたか</span>
+      <h2>計算のしくみ</h2>
+    </div>
+    <div class="notes">
+      <div><b>いま生きている数で選ぶ</b>論文や統計の推計個体数 N に比例して引きます。80億分の1の「人口で選ぶ」に当たります。</div>
+      <div><b>1年に生まれる数で選ぶ</b>出生数は「リトルの法則」で出しています。数が安定していれば、1年の出生数 = 個体数 ÷ 平均寿命。ヒトだけは国連の実測値（年1.32億人）を使っています。</div>
+      <div><b>一生のシミュレーション</b>卵・幼生・成体などの段階ごとに「次へ進める確率」と期間を置き、死んだ段階に応じて死因を引きます。段階の数字は文献の値と、上の「2匹の法則」が成り立つように合わせた推計です。</div>
+      <div><b>微生物の「一生」</b>細菌は分裂すると2つになるので、分裂した時点で一生の終わりとしています。数が安定していれば、分裂までたどり着けるのはちょうど半分（50%）です。</div>
+      <div><b>不確かさ</b>細菌の総数ですら推計には数倍の幅があり、両生類・爬虫類・草のように全球の調査がないものは桁の推計です。下の表に幅と出典を載せています。</div>
+      <div><b>数えなかったもの</b>ウイルス（約10³¹個。生物に含めるかは議論が分かれる）、キノコやカビ（1個体の境目が決められない。最大のナラタケは約9km²に広がる1個体）、サンゴの群体など。</div>
+    </div>
+  </section>
+
+  <section id="sec-data">
+    <div class="sec-head">
+      <span class="eyebrow">データ</span>
+      <h2>全<span id="n-orgs"></span>種類のデータと出典</h2>
+      <p>個体数の幅（下限〜上限）はこのページで使った目安です。「推計」「仮定」とある数字は、論文の値そのものではありません。</p>
+    </div>
+    <div class="table-wrap"><table id="data-table"></table></div>
+  </section>
