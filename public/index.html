@@ -24,7 +24,7 @@
 :root{
 --bg:#EEF2F1; --surface:#FFFFFF; --sunk:#E3E9E7; --ink:#12201D; --muted:#566662; --line:#CCD6D3;
 --accent:#0C6B62; --accent-ink:#FFFFFF; --human:#B42A68;
---c-prok:#6B7F3A; --c-prot:#3F8C7A; --c-inv:#A0662A; --c-vert:#2E5FA3; --c-plant:#4E9A3A; --c-dom:#7A5A9E;
+--c-prok:#6B7F3A; --c-prot:#3F8C7A; --c-inv:#A0662A; --c-vert:#2E5FA3; --c-plant:#4E9A3A; --c-dom:#7A5A9E; --c-plant-ink:#387329;
 --f-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
 --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
 --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
@@ -32,12 +32,12 @@
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
 --bg:#0C1312; --surface:#131D1B; --sunk:#0F1817; --ink:#E2ECE9; --muted:#93A5A0; --line:#263431;
 --accent:#4FC2B1; --accent-ink:#06201C; --human:#F06AA6;
---c-prok:#A9BF6A; --c-prot:#6CC4AE; --c-inv:#E0A15E; --c-vert:#7EA8E6; --c-plant:#86CC6E; --c-dom:#B596DA;
+--c-prok:#A9BF6A; --c-prot:#6CC4AE; --c-inv:#E0A15E; --c-vert:#7EA8E6; --c-plant:#86CC6E; --c-dom:#B596DA; --c-plant-ink:#86CC6E;
 color-scheme:dark; } }
 :root[data-theme="dark"]{
 --bg:#0C1312; --surface:#131D1B; --sunk:#0F1817; --ink:#E2ECE9; --muted:#93A5A0; --line:#263431;
 --accent:#4FC2B1; --accent-ink:#06201C; --human:#F06AA6;
---c-prok:#A9BF6A; --c-prot:#6CC4AE; --c-inv:#E0A15E; --c-vert:#7EA8E6; --c-plant:#86CC6E; --c-dom:#B596DA;
+--c-prok:#A9BF6A; --c-prot:#6CC4AE; --c-inv:#E0A15E; --c-vert:#7EA8E6; --c-plant:#86CC6E; --c-dom:#B596DA; --c-plant-ink:#86CC6E;
 color-scheme:dark; }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.75;
@@ -207,7 +207,7 @@ dl.mini dd.big{font-size:24px;color:var(--accent)}
 .log li.birth .tx{font-weight:700}
 .log li.death .tx,.log li.death small{color:var(--human);font-weight:700}
 .log li.divide .tx{color:var(--accent);font-weight:700}
-.log li.repro .tx{color:var(--c-plant);font-weight:700}
+.log li.repro .tx{color:var(--c-plant-ink);font-weight:700}
 .log li.decision .tx{color:var(--muted)}
 .log li.written .tx{font-family:var(--f-display);font-size:15px}
 .log li.star .tx::before{content:"☆ ";color:var(--c-inv)}

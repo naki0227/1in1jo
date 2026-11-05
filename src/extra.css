@@ -64,7 +64,7 @@ dl.mini dd.big{font-size:24px;color:var(--accent)}
 .log li.birth .tx{font-weight:700}
 .log li.death .tx,.log li.death small{color:var(--human);font-weight:700}
 .log li.divide .tx{color:var(--accent);font-weight:700}
-.log li.repro .tx{color:var(--c-plant);font-weight:700}
+.log li.repro .tx{color:var(--c-plant-ink);font-weight:700}
 .log li.decision .tx{color:var(--muted)}
 .log li.written .tx{font-family:var(--f-display);font-size:15px}
 .log li.star .tx::before{content:"☆ ";color:var(--c-inv)}
